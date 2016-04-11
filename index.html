@@ -3,31 +3,238 @@
     <title>make zip file</title>
     <script type="application/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="application/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.6.0/jszip.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.6.0/jszip.js"></script>
     <script type="application/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
 </head>
 <body>
 <button id="make-zip-file">save ass..</button>
+<input type="hidden" id="load-data" name="abc">
 <script>
-    var zip = new JSZip();
-    zip.file("Hello.txt", "Hello World\n");
-    var img = zip.folder("images");
-    img.file("smile.gif", "https://avatars0.githubusercontent.com/u/8801188?v=3&s=460");
-    var content = zip.generate({type: "blob"});
+    //    var zip = new JSZip();
+    //    var img = zip.folder("slipbook");
+    //    img.file("smile.gif", "https://avatars0.githubusercontent.com/u/8801188?v=3&s=460");
+    //    var content = zip.generate({type: "blob"});
 
-    var images = [
-        "http://orig13.deviantart.net/5374/f/2011/299/f/c/naruto_560__uchiha_madara_by_ar_ua-d4e1d33.jpg",
-        "http://previews.123rf.com/images/leonido/leonido1105/leonido110500553/9570227-The-running-people-Vector-illustration-Stock-Vector-jogging.jpg",
-        "http://previews.123rf.com/images/frenta/frenta1204/frenta120400070/13214263-background-in-shabby-chic-style--Stock-Vector-wallpaper.jpg",
-        "http://previews.123rf.com/images/elisanth/elisanth1301/elisanth130100064/17691642-pink-vintage-wallpaper-with-patterns-and-copy-space-for-your-text--Stock-Vector.jpg"
-
+    var pagesLink = [
+        "http://hoanganh25991.github.io/slipbook/1.png",
+        "http://hoanganh25991.github.io/slipbook/2.png",
+        "http://hoanganh25991.github.io/slipbook/3.png",
+        "http://hoanganh25991.github.io/slipbook/4.png"
     ];
 
-    $("#make-zip-file").on("click", function(){
-        saveAs(content, "abc.zip");
-    });
 
+    //    var zip = new JSZip("http://hoanganh25991.github.io/offline-reading.zip");
+    var content = "";
+    //    $.get( "http://hoanganh25991.github.io/offline-reading.zip", function( data ) {
+    //        var zip = new JSZip(data);
+    //        //build offline-reading.html into zip file
+    ////        zip.file("abc.txt", "this is a offline mod");
+    //        content = zip.generate({type: "blob"});
+    //        /** @warning load uncomplete*/
+    //
+    //    });
+    cssFiles = {
+        "elements.css": "http://hoanganh25991.github.io/slipbook/css/elements.css",
+        "font-face.css": "http://hoanganh25991.github.io/slipbook/css/font-face.css",
+        "preloader.css": "http://hoanganh25991.github.io/slipbook/css/preloader.css",
+        "reset.css": "http://hoanganh25991.github.io/slipbook/css/reset.css",
+        "static.css": "http://hoanganh25991.github.io/slipbook/css/static.css",
+        "style.css": "http://hoanganh25991.github.io/slipbook/css/style.css"
+    };
+    jsFiles = {
+        "jquery.address-1.6.min.js": "http://hoanganh25991.github.io/slipbook/js/jquery.address-1.6.min.js",
+        "jquery.fullscreen.js": "http://hoanganh25991.github.io/slipbook/js/jquery.fullscreen.js",
+        "jquery.js": "http://hoanganh25991.github.io/slipbook/js/jquery.js",
+        "onload.js": "http://hoanganh25991.github.io/slipbook/js/onload.js",
+        "turn.js": "http://hoanganh25991.github.io/slipbook/js/turn.js",
+        "wait.js": "http://hoanganh25991.github.io/slipbook/js/wait.js"
+    };
+
+    imageFiles = {
+        "arrow-navpage.png": "http://hoanganh25991.github.io/slipbook/images/arrow-navpage.png",
+        "arrow-right.png": "http://hoanganh25991.github.io/slipbook/images/arrow-right.png",
+        "bg.jpg": "http://hoanganh25991.github.io/slipbook/images/bg.jpg",
+        "icons.png": "http://hoanganh25991.github.io/slipbook/images/icons.png",
+        "logo.png": "http://hoanganh25991.github.io/slipbook/images/logo.png",
+        "logo-on-book.png": "http://hoanganh25991.github.io/slipbook/images/logo-on-book.png"
+    };
+//    var zip = new JSZip();
+
+    //    var cssFolder = zip.folder("css");
+    //    for(var key in files){
+    //        if(files.hasOwnProperty(key)){
+    //            cssFolder.file(key, files[key]);
+    //        }
+    //    }
+    //    zip.load("https://hoanganh25991.github.io/offline-reading.zip");
+
+    //    makeFolder(zip, "css", cssFiles);
+    //    makeFolder(zip, "js", jsFiles);
+    //    makeFolder(zip, "images", imageFiles);
+    //    makeFolder(zip, "images", pagesLink);
+    //    zip.file("offline-reading.html", buildOfflineReadingHtml());
+    var zip;
+//    content = zip.generate({type: "blob"});
+    $("#make-zip-file").on("click", function(){
+        var oReq = new XMLHttpRequest();
+
+        oReq.onload = function(e) {
+            var arraybuffer = oReq.response; // not responseText
+            zip = new JSZip(arraybuffer);
+
+            var oReq2 = new XMLHttpRequest();
+            oReq2.onload = function(e) {
+                var arraybuffer = oReq2.response; // not responseText
+                /* ... */
+                zip.file('a.png', arraybuffer);
+                content = zip.generate({type: "blob"});
+                saveAs(content, "abc.zip");
+            };
+            oReq2.open("GET", "http://hoanganh25991.github.io/slipbook/1.png");
+            oReq2.responseType = "arraybuffer";
+            oReq2.send();
+        };
+        oReq.open("GET", "http://hoanganh25991.github.io/offline-reading.zip");
+        oReq.responseType = "arraybuffer";
+        oReq.send();
+//        zip.file("offline-reading.html", buildOfflineReadingHtml());
+//        content = zip.generate({type: "blob"});
+//        saveAs(content, "offline-reasdfsdfading.zip");
+//        $.when(
+//                makeFolder(zip, "css", cssFiles),
+//                makeFolder(zip, "js", jsFiles),
+//                makeFolder(zip, "images", imageFiles),
+//                makeFolder(zip, "images", pagesLink),
+//                zip.file("offline-reading.html", buildOfflineReadingHtml()),
+//                content = zip.generate({type: "blob"})
+//        ).then(
+//                saveAs(content, "offline-reasdfsdfading.zip")
+//        );
+//        makeFolder(zip, "css", cssFiles);
+//        makeFolder(zip, "js", jsFiles);
+//        makeFolder(zip, "images", imageFiles);
+//        makeFolder(zip, "images", pagesLink);
+//        zip.file("offline-reading.html", buildOfflineReadingHtml());
+//        saveAs(content, "offline-reasdfsdfading.zip");
+//        $.get("http://hoanganh25991.github.io/slipbook/js/turn.js", function(data){
+//            zip.file("abc.txt", data);
+//            $.get("http://hoanganh25991.github.io/slipbook/1.png",function(data){
+//                zip.file("abc.png", data);
+//                console.log(data);
+//                content = zip.generate({type: "blob"});
+//                saveAs(content, "abc.zip");
+//            });
+//        })
+//        for(var i = )
+//        download("http://hoanganh25991.github.io/slipbook/1.png");
+//        $.get("http://hoanganh25991.github.io/slipbook/2.png", function(data){
+//            zip.file("2.png", data);
+//            content = zip.generate({type: "blob"});
+//            saveAs(content, "abc.zip");
+//        });
+//        var oReq = new XMLHttpRequest();
+//
+//        oReq.onload = function(e) {
+//            var arraybuffer = oReq.response; // not responseText
+//            /* ... */
+//            zip.file('a.png', arraybuffer);
+//            content = zip.generate({type: "blob"});
+//            saveAs(content, "abc.zip");
+//        };
+//        oReq.open("GET", "http://hoanganh25991.github.io/slipbook/1.png");
+//        oReq.responseType = "arraybuffer";
+//        oReq.send();
+    });
+    //    var isFinished = [];
+    //    $.get('http://hoanganh25991.github.io/slipbook/js/turn.js', function() { isFinished.push["address1"]; allDone(); });
+    //    $.get('http://hoanganh25991.github.io/slipbook/js/wait.js', function() { isFinished.push["address2"]; allDone(); });
+    //
+    //    var allDone = function(){
+    //        if(isFinished.length < 3){
+    //            return;
+    //        }
+    //        alert('Finished');
+    //    };
+    function download(img_src){
+        var link = document.createElement("a");
+        link.href = img_src;
+        link.download = true;
+        link.style.display = "none";
+        var evt = new MouseEvent("click", {
+            "view": window,
+            "bubbles": true,
+            "cancelable": true
+        });
+
+        document.body.appendChild(link);
+        link.dispatchEvent(evt);
+        document.body.removeChild(link);
+        console.log("Downloading...");
+    }
+    /**
+     * @param zip
+     * @param name
+     * @param files
+     */
+    function makeFolder(zip, name, files){
+        var folder = zip.folder(name);
+        var extension = "";
+        if($.isArray(files)){
+            console.log("files is array");
+            extension = ".png";
+        }
+        for(var key in files){
+            if(files.hasOwnProperty(key)){
+                var fileName = key + extension;
+                $.ajax({
+                    url: files[key],
+                    type: "GET"
+//                    success: function(){
+//                        saveAs(content, "offline-reasdfsdfading.zip");
+//                    }
+                }).done(function(data){
+//                    var finalFileName = fileName;
+                    //noinspection JSReferencingMutableVariableFromClosure
+                    console.log(data);
+                    folder.file(new Date().toDateString(), data);
+                });
+            }
+        }
+    }
+    function buildOfflineReadingHtml(){
+        var begin = '<!doctype html>\n<html>\n<head>\n <meta content="text/html; charset=utf-8" http-equiv="Content-Type">\n <!-- viewport -->\n <meta content="width=device-width,initial-scale=1" name="viewport">\n <!-- title -->\n <title>offline reading<\/title>\n <!-- add css and js for flipbook -->\n <link type="text/css" href="http://hoanganh25991.github.io/slipbook/css/style.css" rel="stylesheet">\n <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Play:400,700">\n <script src="js/jquery.js"><\/script>\n <script src="js/turn.js"><\/script>\n <script src="js/jquery.fullscreen.js"><\/script>\n <script src="js/jquery.address-1.6.min.js"><\/script>\n <script src="js/wait.js"><\/script>\n <script src="js/onload.js"><\/script>\n <!-- style css -->\n <style>\n html, body {\n margin: 0;\n padding: 0;\n overflow: auto !important;\n }\n <\/style>\n<\/head>\n<body>\n<!-- DIV YOUR WEBSITE -->\n<div style="width:100%;margin:0 auto">\n <!-- BEGIN FLIPBOOK STRUCTURE -->\n <div id="fb5-ajax">\n <!-- BEGIN HTML BOOK -->\n <div data-current="book5" class="fb5" id="fb5">\n <!-- BACKGROUND FOR BOOK -->\n <div class="fb5-bcg-book"><\/div>\n <!-- BEGIN CONTAINER BOOK -->\n <div id="fb5-container-book">\n <!-- BEGIN deep linking -->\n <section id="fb5-deeplinking">\n <ul>';
+        var end = '<!-- arrows -->\n <a class="fb5-nav-arrow prev"><\/a>\n <a class="fb5-nav-arrow next"><\/a>\n <\/div>\n <!-- END CONTAINER BOOK -->\n <!-- BEGIN FOOTER -->\n <div id="fb5-footer">\n\n <div class="fb5-bcg-tools"><\/div>\n\n <a id="fb5-logo" target="_blank" href="http://codecanyon.net/user/flashmaniac?ref=flashmaniac">\n <img alt="" src="images/logo.png">\n <\/a>\n\n <div class="fb5-menu" id="fb5-center">\n <ul>\n\n <!-- icon download -->\n <li>\n <a title="DOWNLOAD (ZIP) " class="fb5-download" href="images/file.pdf"><\/a>\n <\/li>\n\n\n <!-- icon_zoom_in -->\n <li>\n <a title="ZOOM IN" class="fb5-zoom-in"><\/a>\n <\/li>\n\n <!-- icon_zoom_out -->\n\n <li>\n <a title="ZOOM OUT " class="fb5-zoom-out"><\/a>\n <\/li>\n\n <!-- icon_zoom_auto -->\n <li>\n <a title="ZOOM AUTO " class="fb5-zoom-auto"><\/a>\n <\/li>\n\n <!-- icon_zoom_original -->\n <li>\n <a title="ZOOM ORIGINAL (SCALE 1:1)" class="fb5-zoom-original"><\/a>\n <\/li>\n\n\n <!-- icon_allpages -->\n <li>\n <a title="SHOW ALL PAGES " class="fb5-show-all"><\/a>\n <\/li>\n\n\n <!-- icon_home -->\n <li>\n <a title="SHOW HOME PAGE " class="fb5-home"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n <div class="fb5-menu" id="fb5-right">\n <ul>\n <!-- icon page manager -->\n <li class="fb5-goto">\n <label for="fb5-page-number" id="fb5-label-page-number">PAGE<\/label>\n <input type="text" id="fb5-page-number">\n <button type="button">GO<\/button>\n <\/li>\n\n <!-- icon contact form -->\n <li>\n <a title="SEND MESSAGE" class="contact"><\/a>\n <\/li>\n\n <!-- icon fullscreen -->\n <li>\n <a title="FULL / NORMAL SCREEN" class="fb5-fullscreen"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n\n <\/div>\n <!-- END FOOTER -->\n <\/div>\n <!-- END HTML BOOK -->\n <!-- CONFIGURATION FLIPBOOK -->\n <script>\n jQuery("#fb5").data("config",\n {\n "page_width": "550",\n "page_height": "715",\n "email_form": "office@somedomain.com",\n "zoom_double_click": "1",\n "zoom_step": "0.06",\n "double_click_enabled": "true",\n "tooltip_visible": "true",\n "toolbar_visible": "true",\n "gotopage_width": "30",\n "deeplinking_enabled": "true",\n "rtl": "false",\n "full_area": "false",\n "lazy_loading_thumbs": "false",\n "lazy_loading_pages": "false"\n })\n <\/script>\n\n\n <\/div>\n <!-- END FLIPBOOK STRUCTURE -->\n\n<\/div>\n<!-- END DIV YOUR WEBSITE -->\n<\/body>\n<\/html>';
+        var customSection = buildeSection(pagesLink);
+        var customDivPage = buildDivPage(pagesLink);
+        var offlineReadingHtml = begin + customSection + customDivPage + end;
+        return offlineReadingHtml;
+    }
+    /**
+     *
+     * @param pagesLink
+     */
+    function buildeSection(pagesLink){
+        var customSection = '';
+        var pagesLength = pagesLink.length;
+        for(var i = 0; i < pagesLength; i++){
+            customSection += '<li data-address="page' + (i + 1) + '"data-page="' + (i + 1) + '"><\/li>';
+        }
+        customSection += '<\/ul>\n<\/section>\n';
+        return customSection;
+    }
+    /**
+     *
+     * @param pagesLink
+     */
+    function buildDivPage(pagesLink){
+        var customDivPage = '<div id="fb5-book">\n';
+        for(var i = 0; i < pagesLink.length; i++){
+            customDivPage += '<div data-background-image="' + '/images/' + i + '.png' + '"\nclass=""></div>';
+        }
+        customDivPage += '<\/div>\n';
+        return customDivPage;
+    }
 </script>
 </body>
 </html>

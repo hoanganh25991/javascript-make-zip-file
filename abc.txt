@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <!-- viewport -->
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <!-- title -->
+    <title>offline reading</title>
+    <!-- add css and js for flipbook -->
+    <link type="text/css" href="http://hoanganh25991.github.io/slipbook/css/style.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Play:400,700">
+    <script src="http://hoanganh25991.github.io/slipbook/js/jquery.js"></script>
+    <script src="http://hoanganh25991.github.io/slipbook/js/turn.js"></script>
+    <script src="http://hoanganh25991.github.io/slipbook/js/jquery.fullscreen.js"></script>
+    <script src="http://hoanganh25991.github.io/slipbook/js/jquery.address-1.6.min.js"></script>
+    <script src="http://hoanganh25991.github.io/slipbook/js/wait.js"></script>
+    <script src="http://hoanganh25991.github.io/slipbook/js/onload.js"></script>
+    <!-- style css  -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: auto !important;
+        }
+    </style>
+</head>
+<body>
+<!-- DIV YOUR WEBSITE -->
+<div style="width:100%;margin:0 auto">
+    <!-- BEGIN FLIPBOOK STRUCTURE -->
+    <div id="fb5-ajax">
+        <!-- BEGIN HTML BOOK -->
+        <div data-current="book5" class="fb5" id="fb5">
+            <!-- BACKGROUND FOR BOOK -->
+            <div class="fb5-bcg-book"></div>
+            <!-- BEGIN CONTAINER BOOK -->
+            <div id="fb5-container-book">
+                <!-- BEGIN deep linking -->
+                <section id="fb5-deeplinking">
+                    <ul>
