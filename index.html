@@ -11,11 +11,6 @@
 <button id="make-zip-file">save ass..</button>
 <input type="hidden" id="load-data" name="abc">
 <script>
-    //    var zip = new JSZip();
-    //    var img = zip.folder("slipbook");
-    //    img.file("smile.gif", "https://avatars0.githubusercontent.com/u/8801188?v=3&s=460");
-    //    var content = zip.generate({type: "blob"});
-
     var pagesLink = [
         "http://hoanganh25991.github.io/slipbook/1.png",
         "http://hoanganh25991.github.io/slipbook/2.png",
@@ -23,17 +18,6 @@
         "http://hoanganh25991.github.io/slipbook/4.png"
     ];
 
-
-    //    var zip = new JSZip("http://hoanganh25991.github.io/offline-reading.zip");
-    var content = "";
-    //    $.get( "http://hoanganh25991.github.io/offline-reading.zip", function( data ) {
-    //        var zip = new JSZip(data);
-    //        //build offline-reading.html into zip file
-    ////        zip.file("abc.txt", "this is a offline mod");
-    //        content = zip.generate({type: "blob"});
-    //        /** @warning load uncomplete*/
-    //
-    //    });
     cssFiles = {
         "elements.css": "http://hoanganh25991.github.io/slipbook/css/elements.css",
         "font-face.css": "http://hoanganh25991.github.io/slipbook/css/font-face.css",
@@ -74,30 +58,25 @@
     //    makeFolder(zip, "images", imageFiles);
     //    makeFolder(zip, "images", pagesLink);
     //    zip.file("offline-reading.html", buildOfflineReadingHtml());
-    var zip;
+    var zip = new JSZip();
+    var content;
+    var count = 0;
+    var pagesCount = pagesLink.length;
 //    content = zip.generate({type: "blob"});
     $("#make-zip-file").on("click", function(){
-        var oReq = new XMLHttpRequest();
-
-        oReq.onload = function(e) {
-            var arraybuffer = oReq.response; // not responseText
-            zip = new JSZip(arraybuffer);
-
-            var oReq2 = new XMLHttpRequest();
-            oReq2.onload = function(e) {
-                var arraybuffer = oReq2.response; // not responseText
-                /* ... */
-                zip.file('a.png', arraybuffer);
+        loadXHR("http://hoanganh25991.github.io/offline.txt", "zip");
+        for(var i = 0; i < pagesCount; i++){
+            loadXHR(pagesLink[i], "file");
+        }
+        var internal = setInterval(function(){
+            if(count == pagesCount + 1){
+                zip.file("offline-reading.html", buildOfflineReadingHtml());
                 content = zip.generate({type: "blob"});
-                saveAs(content, "abc.zip");
-            };
-            oReq2.open("GET", "http://hoanganh25991.github.io/slipbook/1.png");
-            oReq2.responseType = "arraybuffer";
-            oReq2.send();
-        };
-        oReq.open("GET", "http://hoanganh25991.github.io/offline-reading.zip");
-        oReq.responseType = "arraybuffer";
-        oReq.send();
+                clearInterval(internal);
+                saveAs(content, "offline-reading.zip")
+            }
+        }, 500);
+
 //        zip.file("offline-reading.html", buildOfflineReadingHtml());
 //        content = zip.generate({type: "blob"});
 //        saveAs(content, "offline-reasdfsdfading.zip");
@@ -156,6 +135,28 @@
     //        }
     //        alert('Finished');
     //    };
+    /**@var url string
+     */
+    function loadXHR(url, type){
+        var oReq = new XMLHttpRequest();
+        oReq.onload = function() {
+            var arraybuffer = oReq.response; // not responseText
+            if(type === "zip"){
+                zip = zip.load(arraybuffer);
+                count++;
+                return
+            }
+            var name = url.substring(url.lastIndexOf('/')+1);
+            if(type === "file"){
+                zip.file("images/" + name, arraybuffer);
+                count++;
+                return
+            }
+        };
+        oReq.open("GET", url);
+        oReq.responseType = "arraybuffer";
+        oReq.send();
+    }
     function download(img_src){
         var link = document.createElement("a");
         link.href = img_src;
@@ -203,7 +204,7 @@
         }
     }
     function buildOfflineReadingHtml(){
-        var begin = '<!doctype html>\n<html>\n<head>\n <meta content="text/html; charset=utf-8" http-equiv="Content-Type">\n <!-- viewport -->\n <meta content="width=device-width,initial-scale=1" name="viewport">\n <!-- title -->\n <title>offline reading<\/title>\n <!-- add css and js for flipbook -->\n <link type="text/css" href="http://hoanganh25991.github.io/slipbook/css/style.css" rel="stylesheet">\n <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Play:400,700">\n <script src="js/jquery.js"><\/script>\n <script src="js/turn.js"><\/script>\n <script src="js/jquery.fullscreen.js"><\/script>\n <script src="js/jquery.address-1.6.min.js"><\/script>\n <script src="js/wait.js"><\/script>\n <script src="js/onload.js"><\/script>\n <!-- style css -->\n <style>\n html, body {\n margin: 0;\n padding: 0;\n overflow: auto !important;\n }\n <\/style>\n<\/head>\n<body>\n<!-- DIV YOUR WEBSITE -->\n<div style="width:100%;margin:0 auto">\n <!-- BEGIN FLIPBOOK STRUCTURE -->\n <div id="fb5-ajax">\n <!-- BEGIN HTML BOOK -->\n <div data-current="book5" class="fb5" id="fb5">\n <!-- BACKGROUND FOR BOOK -->\n <div class="fb5-bcg-book"><\/div>\n <!-- BEGIN CONTAINER BOOK -->\n <div id="fb5-container-book">\n <!-- BEGIN deep linking -->\n <section id="fb5-deeplinking">\n <ul>';
+        var begin = '<!doctype html>\n<html>\n<head>\n <meta content="text/html; charset=utf-8" http-equiv="Content-Type">\n <!-- viewport -->\n <meta content="width=device-width,initial-scale=1" name="viewport">\n <!-- title -->\n <title>offline reading<\/title>\n <!-- add css and js for flipbook -->\n <link type="text/css" href="css/style.css" rel="stylesheet">\n <link type="textcss" rel="stylesheet" href="http://fonts.googleapis.comcss?family=Play:400,700">\n <script src="js/jquery.js"><\/script>\n <script src="js/turn.js"><\/script>\n <script src="js/jquery.fullscreen.js"><\/script>\n <script src="js/jquery.address-1.6.min.js"><\/script>\n <script src="js/wait.js"><\/script>\n <script src="js/onload.js"><\/script>\n <!-- style css -->\n <style>\n html, body {\n margin: 0;\n padding: 0;\n overflow: auto !important;\n }\n <\/style>\n<\/head>\n<body>\n<!-- DIV YOUR WEBSITE -->\n<div style="width:100%;margin:0 auto">\n <!-- BEGIN FLIPBOOK STRUCTURE -->\n <div id="fb5-ajax">\n <!-- BEGIN HTML BOOK -->\n <div data-current="book5" class="fb5" id="fb5">\n <!-- BACKGROUND FOR BOOK -->\n <div class="fb5-bcg-book"><\/div>\n <!-- BEGIN CONTAINER BOOK -->\n <div id="fb5-container-book">\n <!-- BEGIN deep linking -->\n <section id="fb5-deeplinking">\n <ul>';
         var end = '<!-- arrows -->\n <a class="fb5-nav-arrow prev"><\/a>\n <a class="fb5-nav-arrow next"><\/a>\n <\/div>\n <!-- END CONTAINER BOOK -->\n <!-- BEGIN FOOTER -->\n <div id="fb5-footer">\n\n <div class="fb5-bcg-tools"><\/div>\n\n <a id="fb5-logo" target="_blank" href="http://codecanyon.net/user/flashmaniac?ref=flashmaniac">\n <img alt="" src="images/logo.png">\n <\/a>\n\n <div class="fb5-menu" id="fb5-center">\n <ul>\n\n <!-- icon download -->\n <li>\n <a title="DOWNLOAD (ZIP) " class="fb5-download" href="images/file.pdf"><\/a>\n <\/li>\n\n\n <!-- icon_zoom_in -->\n <li>\n <a title="ZOOM IN" class="fb5-zoom-in"><\/a>\n <\/li>\n\n <!-- icon_zoom_out -->\n\n <li>\n <a title="ZOOM OUT " class="fb5-zoom-out"><\/a>\n <\/li>\n\n <!-- icon_zoom_auto -->\n <li>\n <a title="ZOOM AUTO " class="fb5-zoom-auto"><\/a>\n <\/li>\n\n <!-- icon_zoom_original -->\n <li>\n <a title="ZOOM ORIGINAL (SCALE 1:1)" class="fb5-zoom-original"><\/a>\n <\/li>\n\n\n <!-- icon_allpages -->\n <li>\n <a title="SHOW ALL PAGES " class="fb5-show-all"><\/a>\n <\/li>\n\n\n <!-- icon_home -->\n <li>\n <a title="SHOW HOME PAGE " class="fb5-home"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n <div class="fb5-menu" id="fb5-right">\n <ul>\n <!-- icon page manager -->\n <li class="fb5-goto">\n <label for="fb5-page-number" id="fb5-label-page-number">PAGE<\/label>\n <input type="text" id="fb5-page-number">\n <button type="button">GO<\/button>\n <\/li>\n\n <!-- icon contact form -->\n <li>\n <a title="SEND MESSAGE" class="contact"><\/a>\n <\/li>\n\n <!-- icon fullscreen -->\n <li>\n <a title="FULL / NORMAL SCREEN" class="fb5-fullscreen"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n\n <\/div>\n <!-- END FOOTER -->\n <\/div>\n <!-- END HTML BOOK -->\n <!-- CONFIGURATION FLIPBOOK -->\n <script>\n jQuery("#fb5").data("config",\n {\n "page_width": "550",\n "page_height": "715",\n "email_form": "office@somedomain.com",\n "zoom_double_click": "1",\n "zoom_step": "0.06",\n "double_click_enabled": "true",\n "tooltip_visible": "true",\n "toolbar_visible": "true",\n "gotopage_width": "30",\n "deeplinking_enabled": "true",\n "rtl": "false",\n "full_area": "false",\n "lazy_loading_thumbs": "false",\n "lazy_loading_pages": "false"\n })\n <\/script>\n\n\n <\/div>\n <!-- END FLIPBOOK STRUCTURE -->\n\n<\/div>\n<!-- END DIV YOUR WEBSITE -->\n<\/body>\n<\/html>';
         var customSection = buildeSection(pagesLink);
         var customDivPage = buildDivPage(pagesLink);
@@ -230,7 +231,7 @@
     function buildDivPage(pagesLink){
         var customDivPage = '<div id="fb5-book">\n';
         for(var i = 0; i < pagesLink.length; i++){
-            customDivPage += '<div data-background-image="' + '/images/' + i + '.png' + '"\nclass=""></div>';
+            customDivPage += '<div data-background-image="' + 'images/' + i + '.png' + '"\nclass=""></div>';
         }
         customDivPage += '<\/div>\n';
         return customDivPage;
