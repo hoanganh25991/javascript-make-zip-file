@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>make zip file</title>
+    <script type="application/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.6.0/jszip.min.js"></script>
+    <script type="application/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+</head>
+<body>
+<button id="make-zip-file">save ass..</button>
+<script>
+    var zip = new JSZip();
+    zip.file("Hello.txt", "Hello World\n");
+    var img = zip.folder("images");
+    img.file("smile.gif", "https://avatars0.githubusercontent.com/u/8801188?v=3&s=460");
+    var content = zip.generate({type: "blob"});
+
+    var images = [
+        "http://orig13.deviantart.net/5374/f/2011/299/f/c/naruto_560__uchiha_madara_by_ar_ua-d4e1d33.jpg",
+        "http://previews.123rf.com/images/leonido/leonido1105/leonido110500553/9570227-The-running-people-Vector-illustration-Stock-Vector-jogging.jpg",
+        "http://previews.123rf.com/images/frenta/frenta1204/frenta120400070/13214263-background-in-shabby-chic-style--Stock-Vector-wallpaper.jpg",
+        "http://previews.123rf.com/images/elisanth/elisanth1301/elisanth130100064/17691642-pink-vintage-wallpaper-with-patterns-and-copy-space-for-your-text--Stock-Vector.jpg"
+
+    ];
+
+    $("#make-zip-file").on("click", function(){
+        saveAs(content, "abc.zip");
+    });
+
+</script>
+</body>
+</html>
