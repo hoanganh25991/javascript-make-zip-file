@@ -61,11 +61,12 @@
         oReq.send();
     }
     function buildOfflineReadingHtml(){
-        var begin = '<!doctype html>\n<html>\n<head>\n <meta content="text/html; charset=utf-8" http-equiv="Content-Type">\n <!-- viewport -->\n <meta content="width=device-width,initial-scale=1" name="viewport">\n <!-- title -->\n <title>offline reading<\/title>\n <!-- add css and js for flipbook -->\n <link type="text/css" href="css/style.css" rel="stylesheet">\n <link type="textcss" rel="stylesheet" href="http://fonts.googleapis.comcss?family=Play:400,700">\n <script src="js/jquery.js"><\/script>\n <script src="js/turn.js"><\/script>\n <script src="js/jquery.fullscreen.js"><\/script>\n <script src="js/jquery.address-1.6.min.js"><\/script>\n <script src="js/wait.js"><\/script>\n <script src="js/onload.js"><\/script>\n <!-- style css -->\n <style>\n html, body {\n margin: 0;\n padding: 0;\n overflow: auto !important;\n }\n <\/style>\n<\/head>\n<body>\n<!-- DIV YOUR WEBSITE -->\n<div style="width:100%;margin:0 auto">\n <!-- BEGIN FLIPBOOK STRUCTURE -->\n <div id="fb5-ajax">\n <!-- BEGIN HTML BOOK -->\n <div data-current="book5" class="fb5" id="fb5">\n <!-- BACKGROUND FOR BOOK -->\n <div class="fb5-bcg-book"><\/div>\n <!-- BEGIN CONTAINER BOOK -->\n <div id="fb5-container-book">\n <!-- BEGIN deep linking -->\n <section id="fb5-deeplinking">\n <ul>';
-        var end = '<!-- arrows -->\n <a class="fb5-nav-arrow prev"><\/a>\n <a class="fb5-nav-arrow next"><\/a>\n <\/div>\n <!-- END CONTAINER BOOK -->\n <!-- BEGIN FOOTER -->\n <div id="fb5-footer">\n\n <div class="fb5-bcg-tools"><\/div>\n\n <a id="fb5-logo" target="_blank" href="http://codecanyon.net/user/flashmaniac?ref=flashmaniac">\n <img alt="" src="images/logo.png">\n <\/a>\n\n <div class="fb5-menu" id="fb5-center">\n <ul>\n\n <!-- icon download -->\n <li>\n <a title="DOWNLOAD (ZIP) " class="fb5-download" href="images/file.pdf"><\/a>\n <\/li>\n\n\n <!-- icon_zoom_in -->\n <li>\n <a title="ZOOM IN" class="fb5-zoom-in"><\/a>\n <\/li>\n\n <!-- icon_zoom_out -->\n\n <li>\n <a title="ZOOM OUT " class="fb5-zoom-out"><\/a>\n <\/li>\n\n <!-- icon_zoom_auto -->\n <li>\n <a title="ZOOM AUTO " class="fb5-zoom-auto"><\/a>\n <\/li>\n\n <!-- icon_zoom_original -->\n <li>\n <a title="ZOOM ORIGINAL (SCALE 1:1)" class="fb5-zoom-original"><\/a>\n <\/li>\n\n\n <!-- icon_allpages -->\n <li>\n <a title="SHOW ALL PAGES " class="fb5-show-all"><\/a>\n <\/li>\n\n\n <!-- icon_home -->\n <li>\n <a title="SHOW HOME PAGE " class="fb5-home"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n <div class="fb5-menu" id="fb5-right">\n <ul>\n <!-- icon page manager -->\n <li class="fb5-goto">\n <label for="fb5-page-number" id="fb5-label-page-number">PAGE<\/label>\n <input type="text" id="fb5-page-number">\n <button type="button">GO<\/button>\n <\/li>\n\n <!-- icon contact form -->\n <li>\n <a title="SEND MESSAGE" class="contact"><\/a>\n <\/li>\n\n <!-- icon fullscreen -->\n <li>\n <a title="FULL / NORMAL SCREEN" class="fb5-fullscreen"><\/a>\n <\/li>\n\n <\/ul>\n <\/div>\n\n\n <\/div>\n <!-- END FOOTER -->\n <\/div>\n <!-- END HTML BOOK -->\n <!-- CONFIGURATION FLIPBOOK -->\n <script>\n jQuery("#fb5").data("config",\n {\n "page_width": "550",\n "page_height": "715",\n "email_form": "office@somedomain.com",\n "zoom_double_click": "1",\n "zoom_step": "0.06",\n "double_click_enabled": "true",\n "tooltip_visible": "true",\n "toolbar_visible": "true",\n "gotopage_width": "30",\n "deeplinking_enabled": "true",\n "rtl": "false",\n "full_area": "false",\n "lazy_loading_thumbs": "false",\n "lazy_loading_pages": "false"\n })\n <\/script>\n\n\n <\/div>\n <!-- END FLIPBOOK STRUCTURE -->\n\n<\/div>\n<!-- END DIV YOUR WEBSITE -->\n<\/body>\n<\/html>';
+        var begin = '<!doctype html>\n<html>\n<head>\n <meta content="text/html; charset=utf-8" http-equiv="Content-Type">\n <!-- viewport -->\n <meta content="width=device-width,initial-scale=1" name="viewport">\n <!-- title -->\n <title>offline reading<\/title>\n <!-- add css and js for flipbook -->\n <link type="text/css" href="css/style.css" rel="stylesheet">\n <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Play:400,700">\n <script src="js/jquery.js"><\/script>\n <script src="js/turn.js"><\/script>\n <script src="js/jquery.fullscreen.js"><\/script>\n <script src="js/jquery.address-1.6.min.js"><\/script>\n <script src="js/wait.js"><\/script>\n <script src="js/onload.js"><\/script>\n <!-- style css -->\n <style>\n html, body {\n margin: 0;\n padding: 0;\n overflow: auto !important;\n }\n <\/style>\n<\/head>\n<body>\n<!-- DIV YOUR WEBSITE -->\n<div style="width:100%;margin:0 auto">\n <!-- BEGIN FLIPBOOK STRUCTURE -->\n <div id="fb5-ajax">\n <!-- BEGIN HTML BOOK -->\n <div data-current="book5" class="fb5" id="fb5">\n <!-- BACKGROUND FOR BOOK -->\n <div class="fb5-bcg-book"><\/div>\n <!-- BEGIN CONTAINER BOOK -->\n <div id="fb5-container-book">';
+        var end = '<!-- CONFIGURATION FLIPBOOK -->\n <script>\n jQuery("#fb5").data("config",\n {\n "page_width": "550",\n "page_height": "715",\n "email_form": "office@somedomain.com",\n "zoom_double_click": "1",\n "zoom_step": "0.06",\n "double_click_enabled": "true",\n "tooltip_visible": "true",\n "toolbar_visible": "true",\n "gotopage_width": "30",\n "deeplinking_enabled": "true",\n "rtl": "false",\n "full_area": "false",\n "lazy_loading_thumbs": "false",\n "lazy_loading_pages": "false"\n })\n <\/script>\n <\/div>\n <!-- END FLIPBOOK STRUCTURE -->\n<\/div>\n<!-- END DIV YOUR WEBSITE -->\n<\/body>\n<\/html>';
         var customSection = buildeSection(pagesLink);
         var customDivPage = buildDivPage(pagesLink);
-        var offlineReadingHtml = begin + customSection + customDivPage + end;
+        var customThumbnail = buildThumbnail(pagesLink);
+        var offlineReadingHtml = begin + customSection + customDivPage + customThumbnail + end;
         return offlineReadingHtml;
     }
     /**
@@ -73,7 +74,7 @@
      * @param pagesLink
      */
     function buildeSection(pagesLink){
-        var customSection = '';
+        var customSection = '<!-- BEGIN deep linking -->\n <section id="fb5-deeplinking">\n <ul>';
         var pagesLength = pagesLink.length;
         for(var i = 0; i < pagesLength; i++){
             customSection += '<li data-address="page' + (i + 1) + '"data-page="' + (i + 1) + '"><\/li>';
@@ -86,13 +87,22 @@
      * @param pagesLink
      */
     function buildDivPage(pagesLink){
-        var customDivPage = '<div id="fb5-book">\n';
+        var customDivPage = '<!-- BEGIN BOOK --><div id="fb5-book">\n';
         for(var i = 0; i < pagesLink.length; i++){
             var fileName = pagesLink[i].substring(pagesLink[i].lastIndexOf('/') + 1);
             customDivPage += '<div data-background-image="' + 'images/' + fileName + '"\nclass=""></div>';
         }
-        customDivPage += '<\/div>\n';
+        customDivPage += '<\/div>\n <!-- END BOOK -->\n <!-- arrows -->\n <a class="fb5-nav-arrow prev"><\/a>\n <a class="fb5-nav-arrow next"><\/a>\n <\/div>\n <!-- END CONTAINER BOOK -->\n <!-- BEGIN FOOTER -->\n <div id="fb5-footer">\n <div class="fb5-bcg-tools"><\/div>\n <a id="fb5-logo" target="_blank" href="http://codecanyon.net/user/flashmaniac?ref=flashmaniac">\n <img alt="" src="images/logo.png">\n <\/a>\n <div class="fb5-menu" id="fb5-center">\n <ul>\n <!-- icon_zoom_in -->\n <li>\n <a title="ZOOM IN" class="fb5-zoom-in"><\/a>\n <\/li>\n <!-- icon_zoom_out -->\n <li>\n <a title="ZOOM OUT " class="fb5-zoom-out"><\/a>\n <\/li>\n <!-- icon_allpages -->\n <li>\n <a title="SHOW ALL PAGES " class="fb5-show-all"><\/a>\n <\/li>\n <!-- icon_home -->\n <li>\n <a title="SHOW HOME PAGE " class="fb5-home"><\/a>\n <\/li>\n <\/ul>\n <\/div>\n\n <\/div>\n <!-- END FOOTER -->\n';
         return customDivPage;
+    }
+    function buildThumbnail(pagesLink){
+        var customThumnail = '<!-- BEGIN ALL PAGES -->\n <div id="fb5-all-pages" class="fb5-overlay">\n <section class="fb5-container-pages">\n <div id="fb5-menu-holder">\n <ul id="fb5-slider">';
+        for(var i = 0; i < pagesLink.length; i++){
+            var fileName = pagesLink[i].substring(pagesLink[i].lastIndexOf('/') + 1);
+            customThumnail += '<li class="' + (i + 1) + '"><img alt="" data-src="images/' + fileName + '"><\/li>';
+        }
+        customThumnail += '<\/ul>\n <\/div>\n <\/section>\n <\/div>\n <!-- END ALL PAGES -->\n <\/div>\n <!-- END HTML BOOK -->';
+        return customThumnail;
     }
 </script>
 </body>
